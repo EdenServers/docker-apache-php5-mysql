@@ -3,8 +3,10 @@
 #Setting up SFTP
 if ! id -u "$USERNAME" >/dev/null 2>&1; then
     PASSWORD=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD)
-    useradd -d /var/www/html -g www-data --shell /usr/bin/rssh --password $PASSWORD $USERNAME
+    useradd -d /var/www/html --shell /usr/bin/rssh --password $PASSWORD $USERNAME
 fi
+
+chown -R $USERNAME /var/www/html
 
 /etc/init.d/ssh start
 
